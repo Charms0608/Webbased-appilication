@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodExpress - Food Delivery App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #fc8019;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        
+        .logo-icon {
+            color: #fc8019;
+            font-size: 28px;
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .location i {
+            margin-right: 5px;
+            color: #686868;
+        }
+        
+        .location span {
+            font-weight: 600;
+            border-bottom: 1px dashed #686868;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .nav-links li:hover {
+            color: #fc8019;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #ff8a00, #ffc000);
+            padding: 40px 5%;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .search-bar button {
+            background: #fc8019;
+            color: white;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* Restaurant Listings */
+        .container {
+            padding: 40px 5%;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .restaurant-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 15px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .card-content p {
+            color: #686868;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .rating span {
+            background: #48c479;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            color: white;
+            padding: 40px 5%;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+            cursor: pointer;
+        }
+        
+        .footer-column ul li:hover {
+            color: #fc8019;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-utensils logo-icon"></i>
+            <h1>FoodExpress</h1>
+        </div>
+        
+        <div class="location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Bengaluru, Karnataka</span>
+        </div>
+        
+        <ul class="nav-links">
+            <li>Offers</li>
+            <li>Help</li>
+            <li>Sign In</li>
+            <li>Cart</li>
+        </ul>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>Hungry? We've got you covered.</h2>
+        <p>Order from your favorite restaurants and get food delivered to your doorstep.</p>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for restaurants or food">
+            <button>Search</button>
+        </div>
+    </section>
+    
+    <!-- Restaurant Listings -->
+    <section class="container">
+        <h2 class="section-title">Popular restaurants</h2>
+        <div class="restaurant-grid">
+            <!-- Restaurant Card 1 -->
+            <div class="restaurant-card">
+                <div class="card-image">
+                    <img src="https://source.unsplash.com/random/300x180/?burger" alt="Burger King">
+                </div>
+                <div class="card-content">
+                    <h3>Burger King</h3>
+                    <p>American • Fast Food • Burgers</p>
+                    <div class="rating">
+                        <span>4.2</span>
+                        <div>35-40 mins</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Restaurant Card 2 -->
+            <div class="restaurant-card">
+                <div class="card-image">
+                    <img src="https://source.unsplash.com/random/300x180/?pizza" alt="Domino's Pizza">
+                </div>
+                <div class="card-content">
+                    <h3>Domino's Pizza</h3>
+                    <p>Italian • Pizza • Sides</p>
+                    <div class="rating">
+                        <span>4.0</span>
+                        <div>30-35 mins</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Restaurant Card 3 -->
+            <div class="restaurant-card">
+                <div class="card-image">
+                    <img src="https://source.unsplash.com/random/300x180/?biryani" alt="Biryani Zone">
+                </div>
+                <div class="card-content">
+                    <h3>Biryani Zone</h3>
+                    <p>Indian • Hyderabadi • Biryani</p>
+                    <div class="rating">
+                        <span>4.5</span>
+                        <div>40-45 mins</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Restaurant Card 4 -->
+            <div class="restaurant-card">
+                <div class="card-image">
+                    <img src="https://source.unsplash.com/random/300x180/?chinese" alt="Chinese Wok">
+                </div>
+                <div class="card-content">
+                    <h3>Chinese Wok</h3>
+                    <p>Chinese • Asian • Noodles</p>
+                    <div class="rating">
+                        <span>4.3</span>
+                        <div>25-30 mins</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Restaurant Card 5 -->
+            <div class="restaurant-card">
+                <div class="card-image">
+                    <img src="https://source.unsplash.com/random/300x180/?icecream" alt="Frozen Delight">
+                </div>
+                <div class="card-content">
+                    <h3>Frozen Delight</h3>
+                    <p>Desserts • Ice Cream • Shakes</p>
+                    <div class="rating">
+                        <span>4.7</span>
+                        <div>20-25 mins</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Restaurant Card 6 -->
+            <div class="restaurant-card">
+                <div class="card-image">
+                    <img src="https://source.unsplash.com/random/300x180/?southindian" alt="Udupi Cafe">
+                </div>
+                <div class="card-content">
+                    <h3>Udupi Cafe</h3>
+                    <p>South Indian • Breakfast • Meals</p>
+                    <div class="rating">
+                        <span>4.1</span>
+                        <div>30-35 mins</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>FoodExpress</h3>
+                <p>Order delicious food from the best restaurants near you.</p>
+                <div class="social-icons">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin"></i>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li>About us</li>
+                    <li>Team</li>
+                    <li>Careers</li>
+                    <li>Blog</li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Help & Support</li>
+                    <li>Partner with us</li>
+                    <li>Ride with us</li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li>Terms & Conditions</li>
+                    <li>Privacy Policy</li>
+                    <li>Cookie Policy</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 FoodExpress. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
